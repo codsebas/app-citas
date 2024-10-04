@@ -46,6 +46,8 @@ public class ControladorEspecialidad implements ActionListener, WindowListener, 
                     System.out.println("Inserción falló");
                 }
             }
+            
+            modelo.getVista().tblEspecialidades.setModel(dao.modeloTablaEspecialidad());
 
         } else if (e.getActionCommand().equals(modelo.getVista().btnActualizar.getActionCommand())) {
             boolean resultado;
@@ -64,6 +66,8 @@ public class ControladorEspecialidad implements ActionListener, WindowListener, 
                     System.out.println("Actualización fallida");
                 }
             }
+            
+            modelo.getVista().tblEspecialidades.setModel(dao.modeloTablaEspecialidad());
 
         } else if (e.getActionCommand().equals(modelo.getVista().btnEliminar.getActionCommand())) {
             boolean resultado;
