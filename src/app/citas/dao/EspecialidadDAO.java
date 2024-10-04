@@ -4,11 +4,10 @@
  */
 package app.citas.dao;
 
-import app.citas.DBConnection;
+import app.citas.sql.Conector;
 import java.sql.Connection;
 import java.util.List;
-
-import app.citas.modelos.Especialidad;
+import app.citas.modelos.ModeloEspecialidad;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -20,12 +19,14 @@ import java.util.ArrayList;
 public class EspecialidadDAO {
     
     // Establecer la conexión con la BD
-    Connection conn = DBConnection.getConnection();
+    //Connection conn = Conector.getConnection();
+    
+    Connection conn;
     
     // OBTENER LOS DATOS - LECTURA DE DATOS
-    public List<Especialidad> getEspecialidades() {
+    public List<ModeloEspecialidad> getEspecialidades() {
         
-        List<Especialidad> especialidades = new ArrayList<>();
+        List<ModeloEspecialidad> especialidades = new ArrayList<>();
         
         String sql = "select * from especialidad";
         
@@ -39,7 +40,7 @@ public class EspecialidadDAO {
                 int idEspecialidad = rs.getInt("id_especialidad");
                 String nombreEspecialidad = rs.getString("nombre_especialidad");
                 
-                Especialidad especialidad = new Especialidad(idEspecialidad, nombreEspecialidad);
+                ModeloEspecialidad especialidad = new ModeloEspecialidad(idEspecialidad, nombreEspecialidad);
                 
                 especialidades.add(especialidad);
                 
@@ -76,9 +77,9 @@ public class EspecialidadDAO {
     }
     
     // OBTENER UNA ESPECIALIDAD SEGÚN UN PARÁMETRO
-    public Especialidad getOneEspecialidad(int pIdEspecialidad) {
+    public ModeloEspecialidad getOneEspecialidad(int pIdEspecialidad) {
         
-        Especialidad especialidad = new Especialidad();
+        ModeloEspecialidad especialidad = new ModeloEspecialidad();
         
         String sql = "select * from especialidad where id_especialidad = ?";
         
@@ -116,7 +117,7 @@ public class EspecialidadDAO {
         try {
             
             // BUSCAR LA ESPECIALIDAD
-            Especialidad especialidadBD = this.getOneEspecialidad(pIdEspecialidad);
+            ModeloEspecialidad especialidadBD = this.getOneEspecialidad(pIdEspecialidad);
             
             if(especialidadBD.getIdEspecialidad() != 0) {
                 
