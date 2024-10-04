@@ -28,6 +28,10 @@ public class ControladorEspecialidad implements ActionListener, WindowListener, 
         this.modelo = modelo;
     }
 
+    String mensajeConfirmacion = "La operacion  se realizó exitosamente";
+    String mensajeError = "La operacion no se realizó exitosamente";
+    String titulo = "Aviso!";
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals(modelo.getVista().btnGuardar.getActionCommand())) {
@@ -39,14 +43,13 @@ public class ControladorEspecialidad implements ActionListener, WindowListener, 
                 modelo.setNombreEspecialidad(this.modelo.getVista().txtEspecialidad.getText());
                 resultado = dao.insertarEspecialidad(modelo);
                 if (!resultado) {
-                    System.out.println("Inserción exitosa");
+                    JOptionPane.showMessageDialog(null, mensajeConfirmacion, titulo, JOptionPane.INFORMATION_MESSAGE);
                     limpiar();
-                    //modelo.getVista().tblEspecialidades.setModel(dao.modeloTablaEspecialidad());
                 } else {
-                    System.out.println("Inserción falló");
+                    JOptionPane.showMessageDialog(null, mensajeError, titulo, JOptionPane.INFORMATION_MESSAGE);
                 }
             }
-            
+
             modelo.getVista().tblEspecialidades.setModel(dao.modeloTablaEspecialidad());
 
         } else if (e.getActionCommand().equals(modelo.getVista().btnActualizar.getActionCommand())) {
@@ -59,14 +62,13 @@ public class ControladorEspecialidad implements ActionListener, WindowListener, 
                 modelo.setNombreEspecialidad(this.modelo.getVista().txtEspecialidad.getText());
                 resultado = dao.actualizarEspecialidad(modelo);
                 if (!resultado) {
-                    System.out.println("Actualización exitosa");
+                    JOptionPane.showMessageDialog(null, mensajeConfirmacion, titulo, JOptionPane.INFORMATION_MESSAGE);
                     limpiar();
-                    //modelo.getVista().tblEspecialidades.setModel(dao.modeloTablaEspecialidad());
                 } else {
-                    System.out.println("Actualización fallida");
+                    JOptionPane.showMessageDialog(null, mensajeError, titulo, JOptionPane.INFORMATION_MESSAGE);
                 }
             }
-            
+
             modelo.getVista().tblEspecialidades.setModel(dao.modeloTablaEspecialidad());
 
         } else if (e.getActionCommand().equals(modelo.getVista().btnEliminar.getActionCommand())) {
@@ -76,31 +78,29 @@ public class ControladorEspecialidad implements ActionListener, WindowListener, 
             } else {
                 int respuesta = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar el registro?",
                         "Confirmación", JOptionPane.YES_NO_OPTION);
-                if (respuesta == JOptionPane.YES_OPTION){
+                if (respuesta == JOptionPane.YES_OPTION) {
                     resultado = dao.eliminarEspecialidad(modelo.getVista().txtIdEspecialidad.getText());
                     if (!resultado) {
-                        System.out.println("Eliminación exitosa");
+                        JOptionPane.showMessageDialog(null, mensajeConfirmacion, titulo, JOptionPane.INFORMATION_MESSAGE);
                         limpiar();
-                        modelo.getVista().tblEspecialidades.setModel(dao.modeloTablaEspecialidad());
                     } else {
-                        System.out.println("Problemas al eliminar");
+                        JOptionPane.showMessageDialog(null, mensajeError, titulo, JOptionPane.INFORMATION_MESSAGE);
                     }
-                    
+
                 }
             }
-            
+            modelo.getVista().tblEspecialidades.setModel(dao.modeloTablaEspecialidad());
+
         } else if (e.getActionCommand().equals(modelo.getVista().btnReload.getActionCommand())) {
             modelo.getVista().tblEspecialidades.setModel(dao.modeloTablaEspecialidad());
-            
+
         } else if (e.getActionCommand().equals(modelo.getVista().btnLimpiar.getActionCommand())) {
             limpiar();
-        }
-        
-        else if(e.getActionCommand().equals(modelo.getVista().btnRegresar.getActionCommand())){
+        } else if (e.getActionCommand().equals(modelo.getVista().btnRegresar.getActionCommand())) {
             modelo.getVista().setVisible(false);
             VistaInicio vistaInicial = new VistaInicio();
             vistaInicial.setVisible(true);
-            
+
         }
     }
 
